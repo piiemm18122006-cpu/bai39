@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài K8: Tính chỉ số BMI và phân loại</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; padding: 0 16px; }
+    label { display: block; margin: 12px 0 4px; font-weight: bold; }
+    input { padding: 8px; font-size: 16px; width: 200px; }
+    button { margin-top: 14px; padding: 10px 20px; font-size: 16px; border: none; border-radius: 8px;
+      background: #16a34a; color: #fff; cursor: pointer; }
+    #ketQua { margin-top: 18px; font-size: 18px; font-weight: bold; }
+    .thieu { color: #2563eb; } .binhthuong { color: #16a34a; } .thua { color: #dc2626; } .loi { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <p><a href="bt39.html">← Về trang chủ</a></p>
+  <h1>Bài K8: Tính chỉ số BMI và phân loại</h1>
+  <p>Họ tên: Đỗ Huy Nhật Em | MSSV: 241A010437</p>
+
+  <label for="canNang">Cân nặng (kg):</label>
+  <input type="number" id="canNang" step="0.1" min="0" placeholder="Ví dụ: 60">
+
+  <label for="chieuCao">Chiều cao (m):</label>
+  <input type="number" id="chieuCao" step="0.01" min="0" placeholder="Ví dụ: 1.65">
+
+  <br><button id="btnTinh">Tính BMI</button>
+  <div id="ketQua"></div>
+
+  <script>
+    // Hàm tính BMI = cân nặng / (chiều cao)^2
+    function tinhBMI(canNang, chieuCao) {
+      return canNang / (chieuCao * chieuCao);
+    }
+
+    // Hàm phân loại
+    function phanLoai(bmi) {
+      if (bmi < 18.5) return { ten: "Thiếu cân", lop: "thieu" };
+      if (bmi < 25)   return { ten: "Bình thường", lop: "binhthuong" };
+      return { ten: "Thừa cân", lop: "thua" };
+    }
+
+    var elKetQua = document.getElementById("ketQua");
+
+    function hienThi() {
+      var canNang = parseFloat(document.getElementById("canNang").value);
+      var chieuCao = parseFloat(document.getElementById("chieuCao").value);
+
+      if (!(canNang > 0) || !(chieuCao > 0)) {
+        elKetQua.className = "loi";
+        elKetQua.textContent = "Vui lòng nhập cân nặng và chiều cao hợp lệ (lớn hơn 0).";
+        return;
+      }
+      var bmi = tinhBMI(canNang, chieuCao);
+      var pl = phanLoai(bmi);
+      elKetQua.className = pl.lop;
+      elKetQua.textContent = "BMI = " + bmi.toFixed(1) + " → " + pl.ten;
+    }
+
+    document.getElementById("btnTinh").addEventListener("click", hienThi);
+  </script>
+</body>
+</html>

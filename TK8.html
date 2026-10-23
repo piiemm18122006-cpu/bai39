@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài TK8: Chuyển đổi màu Hex sang RGB</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; padding: 0 16px; }
+    input { padding: 10px; font-size: 18px; width: 180px; text-transform: uppercase; }
+    button { padding: 10px 20px; font-size: 16px; border: none; border-radius: 8px; background: #2563eb; color: #fff; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+    #ketQua { margin-top: 18px; font-size: 22px; font-weight: bold; font-family: monospace; }
+    #ketQua.loi { color: #dc2626; font-size: 16px; font-family: Arial, sans-serif; }
+    #mau { width: 120px; height: 60px; margin-top: 12px; border: 2px solid #999; border-radius: 8px; background: #fff; }
+  </style>
+</head>
+<body>
+  <p><a href="bt39.html">← Về trang chủ</a></p>
+  <h1>Bài TK8: Chuyển đổi màu Hex sang RGB</h1>
+  <p>Họ tên: Đỗ Huy Nhật Em</Em> | MSSV: 241A010437</p>
+
+  <p>Nhập mã màu Hex (ví dụ: <b>#FF0000</b>):</p>
+  <input type="text" id="inputHex" value="#FF0000" maxlength="7">
+  <button id="btnDoi">Chuyển đổi</button>
+
+  <div id="ketQua"></div>
+  <div id="mau"></div>
+
+  <script>
+    // Hàm nhận mã Hex (ví dụ #FF0000) và trả về chuỗi RGB (ví dụ rgb(255, 0, 0))
+    // Trả về null nếu mã Hex không hợp lệ
+    function hexToRgb(hex) {
+      hex = hex.trim().replace("#", "");
+
+      // Cho phép dạng rút gọn: #F00 -> #FF0000
+      if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+      }
+
+      // Phải đúng 6 ký tự thuộc 0-9, A-F
+      if (!/^[0-9a-fA-F]{6}$/.test(hex)) return null;
+
+      var r = parseInt(hex.substring(0, 2), 16);
+      var g = parseInt(hex.substring(2, 4), 16);
+      var b = parseInt(hex.substring(4, 6), 16);
+      return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
+
+    var elInput = document.getElementById("inputHex");
+    var elKetQua = document.getElementById("ketQua");
+    var elMau = document.getElementById("mau");
+
+    function chuyenDoi() {
+      var rgb = hexToRgb(elInput.value);
+      if (rgb === null) {
+        elKetQua.className = "loi";
+        elKetQua.textContent = "Mã Hex không hợp lệ. Ví dụ đúng: #FF0000";
+        elMau.style.background = "#fff";
+        return;
+      }
+      elKetQua.className = "";
+      elKetQua.textContent = rgb;
+      elMau.style.background = rgb;     // hiển thị ô màu minh họa
+    }
+
+    document.getElementById("btnDoi").addEventListener("click", chuyenDoi);
+    elInput.addEventListener("keydown", function (e) { if (e.key === "Enter") chuyenDoi(); });
+    chuyenDoi();
+  </script>
+</body>
+</html>

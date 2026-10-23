@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài K6: Xử lý sự kiện bàn phím</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; padding: 0 16px; }
+    #khung { position: relative; width: 300px; height: 300px; border: 3px solid #2563eb; border-radius: 12px;
+      background: #eff6ff; overflow: hidden; }
+    #khoi { position: absolute; left: 125px; top: 125px; width: 50px; height: 50px; background: #ef4444; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <p><a href="bt39.html">← Về trang chủ</a></p>
+  <h1>Bài K6: Xử lý sự kiện bàn phím</h1>
+  <p>Họ tên: Đỗ Huy Nhật Em| MSSV: 241A010437</p>
+  <p>Bấm phím <b>↑</b> để lên, <b>↓</b> để xuống.</p>
+
+  <div id="khung"><div id="khoi"></div></div>
+
+  <script>
+    var khoi = document.getElementById("khoi");
+    var khung = document.getElementById("khung");
+    var y = 125;          // vị trí top hiện tại
+    var buoc = 10;        // mỗi lần bấm dịch 10px
+
+    // Lắng nghe sự kiện keydown
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowUp") {
+        y -= buoc;
+        e.preventDefault();             // không cho trang cuộn
+      } else if (e.key === "ArrowDown") {
+        y += buoc;
+        e.preventDefault();
+      } else {
+        return;
+      }
+      // Không cho ra ngoài khung
+      var toiDa = khung.clientHeight - khoi.offsetHeight;
+      if (y < 0) y = 0;
+      if (y > toiDa) y = toiDa;
+      khoi.style.top = y + "px";
+    });
+  </script>
+</body>
+</html>

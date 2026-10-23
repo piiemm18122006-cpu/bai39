@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài K4: Phân trang danh sách</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; padding: 0 16px; }
+    ul { list-style: none; padding: 0; }
+    li { padding: 10px 14px; border-bottom: 1px solid #e5e7eb; }
+    li:nth-child(odd) { background: #f9fafb; }
+    #phanTrang { display: flex; gap: 6px; margin-top: 14px; }
+    #phanTrang button { padding: 8px 14px; border: 1px solid #2563eb; background: #fff; color: #2563eb;
+      border-radius: 6px; cursor: pointer; font-size: 15px; }
+    #phanTrang button.active { background: #2563eb; color: #fff; }
+  </style>
+</head>
+<body>
+  <p><a href="bt39.html">← Về trang chủ</a></p>
+  <h1>Bài K4: Phân trang danh sách</h1>
+  <p>Họ tên: Đỗ Huy Nhật Em | MSSV: 241A010437</p>
+
+  <ul id="danhSach"></ul>
+  <div id="phanTrang"></div>
+
+  <script>
+    // 1. Tạo danh sách 50 mục
+    var tatCaMuc = [];
+    for (var i = 1; i <= 50; i++) tatCaMuc.push("Mục số " + i);
+
+    var soMucMotTrang = 10;
+    var tongSoTrang = Math.ceil(tatCaMuc.length / soMucMotTrang);
+    var trangHienTai = 1;
+
+    var elDanhSach = document.getElementById("danhSach");
+    var elPhanTrang = document.getElementById("phanTrang");
+
+    // 2. Hiển thị các mục của một trang
+    function hienThiTrang(trang) {
+      trangHienTai = trang;
+      var batDau = (trang - 1) * soMucMotTrang;
+      var cacMuc = tatCaMuc.slice(batDau, batDau + soMucMotTrang);
+
+      elDanhSach.innerHTML = "";
+      cacMuc.forEach(function (muc) {
+        var li = document.createElement("li");
+        li.textContent = muc;
+        elDanhSach.appendChild(li);
+      });
+      capNhatNut();
+    }
+
+    // 3. Tạo các nút phân trang 1, 2, 3...
+    function taoNut() {
+      for (var t = 1; t <= tongSoTrang; t++) {
+        var nut = document.createElement("button");
+        nut.textContent = t;
+        (function (soTrang) {
+          nut.addEventListener("click", function () { hienThiTrang(soTrang); });
+        })(t);
+        elPhanTrang.appendChild(nut);
+      }
+    }
+
+    // 4. Tô màu nút của trang đang xem
+    function capNhatNut() {
+      var cacNut = elPhanTrang.querySelectorAll("button");
+      cacNut.forEach(function (nut, idx) {
+        nut.classList.toggle("active", idx + 1 === trangHienTai);
+      });
+    }
+
+    taoNut();
+    hienThiTrang(1);
+  </script>
+</body>
+</html>

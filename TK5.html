@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài TK5: Accordion đơn giản</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; padding: 0 16px; }
+    .accordion { border: 1px solid #ccc; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+    .accordion-title { width: 100%; text-align: left; padding: 14px 16px; font-size: 16px; font-weight: bold;
+      background: #e0e7ff; border: none; cursor: pointer; }
+    .accordion-title:hover { background: #c7d2fe; }
+    /* Nội dung ẩn: max-height = 0, trượt bằng transition */
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: #fff; }
+    .accordion-content p { margin: 0; padding: 14px 16px; }
+    /* Khi có class "active" thì mở ra */
+    .accordion.active .accordion-content { max-height: 200px; }
+  </style>
+</head>
+<body>
+  <p><a href="bt39.html">← Về trang chủ</a></p>
+  <h1>Bài TK5: Accordion đơn giản</h1>
+  <p>Họ tên: Đỗ Huy Nhật Em | MSSV: 241A010437</p>
+
+  <div class="accordion">
+    <button class="accordion-title">HTML là gì?</button>
+    <div class="accordion-content"><p>HTML là ngôn ngữ đánh dấu dùng để tạo cấu trúc cho trang web.</p></div>
+  </div>
+  <div class="accordion">
+    <button class="accordion-title">CSS là gì?</button>
+    <div class="accordion-content"><p>CSS dùng để định dạng giao diện: màu sắc, bố cục, hiệu ứng.</p></div>
+  </div>
+  <div class="accordion">
+    <button class="accordion-title">JavaScript là gì?</button>
+    <div class="accordion-content"><p>JavaScript là ngôn ngữ lập trình giúp trang web có tương tác và hiệu ứng.</p></div>
+  </div>
+
+  <script>
+    // Bấm vào tiêu đề thì bật/tắt class "active" bằng classList.toggle()
+    var tieuDe = document.querySelectorAll(".accordion-title");
+    tieuDe.forEach(function (nut) {
+      nut.addEventListener("click", function () {
+        nut.parentElement.classList.toggle("active");
+      });
+    });
+  </script>
+</body>
+</html>
